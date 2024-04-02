@@ -2,13 +2,14 @@
 import {
   StatusBar,
   useColorScheme,
-  View,
+  View
 } from 'react-native';
 
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 import { CalculatorScreen } from './presentation/screens/CalculatorScreen';
+import { globalStyles } from './config/theme/app-theme';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -17,10 +18,11 @@ function App() {
   };
 
   return (
-    <View style={backgroundStyle}>
+    <View style={globalStyles.background}>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+        translucent
+        barStyle={'light-content'}
+        backgroundColor={'black'}
       />
       <CalculatorScreen/>
     </View>
