@@ -3,6 +3,31 @@ import { useState } from "react"
 export const useCalculator = () => {
 
   const [number, setNumber] = useState('0') // manejando un string
+
+  // Borrar valores
+  const clean = () => {
+    setNumber('0');
+  }
+
+  // Borrar el ultimo numero ingresado
+  const deleteOperation = () => {
+
+    let currentSign = '';
+    let temporalNumber = number;
+
+    if (number.includes('-')) { 
+      currentSign = '-';
+      temporalNumber = number.substring(1);
+    }
+
+    if (temporalNumber.length > 1) { 
+      // return setNumber( currentSign + temporalNumber.substring(0, temporalNumber.length-1) );
+      return setNumber( currentSign + temporalNumber.slice(0, -1) );
+    }
+
+    setNumber('0');
+  }
+
   const buildNumber = ( numberString: string ) => {
 
     // Validaciones
@@ -31,11 +56,23 @@ export const useCalculator = () => {
 
     setNumber( number + numberString);
   }
+
+  const toggleSign = () => {
+
+    if( number.includes('-') ){
+      return setNumber( number.replace('-','') );
+    }
+    setNumber('-' + number );
+  }
+
   
   return {
     // Properties
     number,
     // Methods
-    buildNumber
+    buildNumber,
+    toggleSign,
+    clean,
+    deleteOperation
   }
 }
