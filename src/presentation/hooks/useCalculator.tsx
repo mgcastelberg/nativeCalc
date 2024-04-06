@@ -1,23 +1,37 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 enum Operator {
-  add,
-  substract,
-  multiply,
-  divide
+  add = '+',
+  substract = '-',
+  multiply = '*',
+  divide = '÷'
 }
 
 export const useCalculator = () => {
 
   const [number, setNumber] = useState('0') // manejando un string
   const [prevNumber, setprevNumber] = useState('0')
+  const [formula, setFormula] = useState('');
 
   const lastOperation = useRef<Operator>();
+
+  // Se va a disparar cada vez que el numero cambie
+  useEffect(() => {
+    if ( lastOperation.current ) {
+      const firstFormulaPart = formula.split(' ').at(0);
+      setFormula( `${firstFormulaPart} ${lastOperation.current} ${ number }`);
+    } else {
+      setFormula( number );
+    }
+
+  }, [number]);
 
   // Borrar valores
   const clean = () => {
     setNumber('0');
     setprevNumber('0');
+    lastOperation.current = undefined;
+    setFormula('');
   }
 
   // Borrar el ultimo numero ingresado
@@ -107,35 +121,41 @@ export const useCalculator = () => {
 
   const calculateResult = () => {
 
-    const num1 = Number(prevNumber);
-    const num2 = Number(number);
+    const result = calculateSubResult();
+    setFormula( `${ result }` );
 
-    switch (lastOperation.current) {
-      case Operator.add:
-          setNumber( `${ num1 + num2 }`);
-        break;
-      case Operator.substract:
-          setNumber( `${ num1 - num2 }`);
-        break;
-      case Operator.multiply:
-          setNumber( `${ num1 * num2 }`);
-        break;
-      case Operator.divide:
-          setNumber( `${ num1 / num2 }`);
-        break;    
-      default:
-        throw new Error('Operation not implemented');
-    }
+    lastOperation.current = undefined;
     setprevNumber('0');
 
   }
 
-  
+  const calculateSubResult = (): Number => {
+    
+    const [ firstVal, operation, secoundVal ] = formula.split(' ');
+    const num1 = Number(firstVal);
+    const num2 = Number(secoundVal);
+
+    if ( isNaN( num2 )) return num1;
+
+    switch ( operation ) {
+      case Operator.add:
+          return num1 + num2;
+      case Operator.substract:
+          return num1 - num2;
+      case Operator.multiply:
+          return num1 * num2;
+      case Operator.divide:
+          return num1 / num2;    
+      default:
+        throw new Error('Operation not implemented');
+    }
+  }
 
   return {
     // Properties
     number,
     prevNumber,
+    formula,
     // Methods
     buildNumber,
     toggleSign,

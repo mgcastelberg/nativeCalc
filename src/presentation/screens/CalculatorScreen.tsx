@@ -7,14 +7,14 @@ export const CalculatorScreen = () => {
 
   // podemos trabajar toda la logica en un hook
   const {
-    number, prevNumber, buildNumber, toggleSign, clean, deleteOperation,
+    number, prevNumber, formula, buildNumber, toggleSign, clean, deleteOperation, 
     addOperation, substractOperation, multiplyOperation, divideOperation, calculateResult
   } = useCalculator();
 
   return (
     <View style={ globalStyles.calculatorContainer } >
         <View style={{ paddingHorizontal:30, paddingBottom:20 }}>
-          <Text adjustsFontSizeToFit numberOfLines={1} style={ globalStyles.mainResult } >{ number }</Text>
+          <Text adjustsFontSizeToFit numberOfLines={1} style={ globalStyles.mainResult } >{ formula }</Text>
           <Text adjustsFontSizeToFit numberOfLines={1} style={ globalStyles.subResult }>{ (prevNumber === '0' ? '' : prevNumber) }</Text>
         </View>
 
