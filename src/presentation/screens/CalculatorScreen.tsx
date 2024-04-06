@@ -8,7 +8,7 @@ export const CalculatorScreen = () => {
   // podemos trabajar toda la logica en un hook
   const {
     number, prevNumber, buildNumber, toggleSign, clean, deleteOperation,
-    addOperation, substractOperation, multiplyOperation, divideOperation
+    addOperation, substractOperation, multiplyOperation, divideOperation, calculateResult
   } = useCalculator();
 
   return (
@@ -49,7 +49,7 @@ export const CalculatorScreen = () => {
         <View style={ globalStyles.row }>
           <CalculatorButton onPress={ () => buildNumber('0') } label="0" doubleSize />
           <CalculatorButton onPress={ () => buildNumber('.') } label="." />
-          <CalculatorButton onPress={ () => console.log('=') } label="=" color={ colors.orange } />
+          <CalculatorButton onPress={ () => calculateResult() } label="=" color={ colors.orange } />
         </View>
 
     </View>
