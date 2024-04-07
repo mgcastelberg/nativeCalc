@@ -26,6 +26,14 @@ export const useCalculator = () => {
 
   }, [number]);
 
+  // use efect para mostrar resultado automaticamente
+  useEffect(() => {
+    
+    const subResult = calculateSubResult();
+    setprevNumber(`${ subResult }`)
+
+  }, [formula]);
+
   // Borrar valores
   const clean = () => {
     setNumber('0');
@@ -91,6 +99,7 @@ export const useCalculator = () => {
   }
 
   const setLastNumber = () => {
+    calculateResult();
     if ( number.endsWith('.') ) {
       setprevNumber( number.slice(0,-1) );
     } else {

@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from "react-native"
+import { Text, View } from "react-native"
 import { colors, globalStyles } from "../../config/theme/app-theme"
 import { CalculatorButton } from "../components/CalculatorButton"
 import { useCalculator } from "../hooks/useCalculator"
@@ -15,7 +15,14 @@ export const CalculatorScreen = () => {
     <View style={ globalStyles.calculatorContainer } >
         <View style={{ paddingHorizontal:30, paddingBottom:20 }}>
           <Text adjustsFontSizeToFit numberOfLines={1} style={ globalStyles.mainResult } >{ formula }</Text>
-          <Text adjustsFontSizeToFit numberOfLines={1} style={ globalStyles.subResult }>{ (prevNumber === '0' ? '' : prevNumber) }</Text>
+          {
+            (formula === prevNumber ) 
+            ? <Text adjustsFontSizeToFit numberOfLines={1} style={ globalStyles.subResult }> </Text>
+            : <Text adjustsFontSizeToFit numberOfLines={1} style={ globalStyles.subResult }>{ (prevNumber === '0' ? '' : prevNumber) }</Text>
+
+
+
+          }
         </View>
 
         <View style={ globalStyles.row }>
