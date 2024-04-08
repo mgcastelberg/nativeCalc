@@ -1,4 +1,4 @@
-package com.nativecalc
+package com.terraunida.nativecalc
 
 import android.app.Application
 import com.facebook.react.PackageList

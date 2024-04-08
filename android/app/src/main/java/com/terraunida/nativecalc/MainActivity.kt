@@ -1,4 +1,4 @@
-package com.nativecalc
+package com.terraunida.nativecalc
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
